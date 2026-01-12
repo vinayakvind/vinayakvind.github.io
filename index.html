@@ -4,97 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-6404032174018146">
-  <title>World Priority - What Matters Most to Humanity</title>
+  <title>World Priority - What Should Humanity Focus On?</title>
+  <meta name="description" content="Vote on the most important issues facing humanity. See global trends and what people think the world should prioritize.">
   
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6404032174018146" crossorigin="anonymous"></script>
   
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <!-- Google Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       min-height: 100vh;
-      color: #333;
+      color: #fff;
     }
     
-    /* Header Styles */
+    /* Header */
     .header {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 15px 30px;
       position: sticky;
       top: 0;
       z-index: 1000;
-      border-bottom: 3px solid #667eea;
     }
     
     .header-content {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 20px;
-    }
-    
-    .logo-section {
-      display: flex;
-      align-items: center;
       gap: 15px;
     }
     
-    .globe-icon {
-      font-size: 48px;
-      animation: rotate 20s linear infinite;
-    }
-    
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    .site-title {
+    .logo {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
     
-    .site-title h1 {
-      font-size: 32px;
+    .globe {
+      font-size: 40px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .logo h1 {
+      font-size: 24px;
       font-weight: 900;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -1px;
     }
     
-    .site-title .tagline {
-      font-size: 14px;
-      color: #666;
-      font-weight: 400;
-      margin-top: 2px;
+    .logo .tagline {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     
-    .header-actions {
+    .auth-section {
       display: flex;
-      gap: 15px;
       align-items: center;
+      gap: 15px;
+    }
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      border-radius: 50px;
+    }
+    
+    .user-profile img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #00d4ff;
+    }
+    
+    .user-profile span {
+      font-size: 14px;
+      font-weight: 600;
     }
     
     .btn {
@@ -103,236 +111,212 @@
       border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
       font-size: 14px;
-      text-decoration: none;
-      display: inline-block;
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
       color: white;
     }
     
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 10px 30px rgba(0,212,255,0.3);
     }
     
-    .btn-secondary {
-      background: white;
-      color: #667eea;
-      border: 2px solid #667eea;
-    }
-    
-    .btn-secondary:hover {
-      background: #667eea;
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.3);
       color: white;
     }
     
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 15px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      font-size: 14px;
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero h2 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero h2 span {
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
     }
     
     /* Stats Bar */
     .stats-bar {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 15px;
-      text-align: center;
-      border-bottom: 1px solid #e0e0e0;
-    }
-    
-    .stats-container {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
+      gap: 50px;
+      padding: 30px;
       flex-wrap: wrap;
-      gap: 20px;
     }
     
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .stat {
+      text-align: center;
     }
     
-    .stat-number {
-      font-size: 32px;
+    .stat-value {
+      font-size: 36px;
       font-weight: 900;
-      color: #667eea;
-      line-height: 1;
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     .stat-label {
       font-size: 12px;
-      color: #666;
+      color: rgba(255,255,255,0.5);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       margin-top: 5px;
     }
     
     /* Main Container */
     .container {
       max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
     }
     
-    .intro-section {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-    
-    .intro-section h2 {
-      font-size: 28px;
-      margin-bottom: 15px;
-      color: #333;
-    }
-    
-    .intro-section p {
-      color: #666;
-      line-height: 1.8;
-      font-size: 16px;
-    }
-    
-    /* Priority Items */
-    .priorities-section {
-      background: white;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
-    
+    /* Section Title */
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 2px solid #f0f0f0;
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
-    .section-header h3 {
-      font-size: 24px;
-      color: #333;
+    .section-title {
+      font-size: 28px;
+      font-weight: 800;
     }
     
-    .filter-buttons {
-      display: flex;
-      gap: 10px;
+    .section-title span {
+      color: #00d4ff;
     }
     
-    .filter-btn {
-      padding: 6px 12px;
-      border: 1px solid #ddd;
-      background: white;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .filter-btn.active {
-      background: #667eea;
-      color: white;
-      border-color: #667eea;
-    }
-    
+    /* Priority Cards */
     .priority-list {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
     
-    .priority-item {
+    .priority-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 25px;
       display: flex;
       align-items: center;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
+      gap: 20px;
+      transition: all 0.3s;
     }
     
-    .priority-item:hover {
-      border-color: #667eea;
+    .priority-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(0,212,255,0.3);
       transform: translateX(5px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
     }
     
-    .priority-rank {
-      font-size: 24px;
+    .rank {
+      font-size: 32px;
       font-weight: 900;
-      color: #667eea;
-      margin-right: 20px;
-      min-width: 40px;
+      min-width: 50px;
       text-align: center;
     }
     
-    .priority-content {
+    .rank.gold { color: #ffd700; }
+    .rank.silver { color: #c0c0c0; }
+    .rank.bronze { color: #cd7f32; }
+    .rank.normal { color: rgba(255,255,255,0.4); }
+    
+    .priority-info {
       flex: 1;
     }
     
     .priority-title {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      color: #333;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
     
     .priority-meta {
-      font-size: 12px;
-      color: #999;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
     }
     
-    .priority-category {
-      display: inline-block;
-      padding: 4px 10px;
-      background: #667eea;
-      color: white;
-      border-radius: 4px;
+    .category-tag {
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      padding: 4px 12px;
+      border-radius: 20px;
       font-size: 11px;
-      margin-right: 10px;
       font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .priority-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
     }
     
     .vote-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 80px;
+      gap: 8px;
     }
     
     .vote-btn {
-      background: white;
-      border: 2px solid #667eea;
-      color: #667eea;
-      font-size: 24px;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
+      border: 2px solid rgba(0,212,255,0.5);
+      background: rgba(0,212,255,0.1);
+      color: #00d4ff;
+      font-size: 24px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     
     .vote-btn:hover:not(:disabled) {
-      background: #667eea;
-      color: white;
+      background: #00d4ff;
+      color: #1a1a2e;
       transform: scale(1.1);
+    }
+    
+    .vote-btn.voted {
+      background: #00d4ff;
+      color: #1a1a2e;
     }
     
     .vote-btn:disabled {
@@ -340,135 +324,53 @@
       cursor: not-allowed;
     }
     
-    .vote-btn.voted {
-      background: #667eea;
-      color: white;
-    }
-    
     .vote-count {
-      margin-top: 8px;
+      font-size: 18px;
       font-weight: 700;
-      color: #667eea;
-      font-size: 16px;
-    }
-    
-    /* Loading State */
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-    }
-    
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #667eea;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      color: #00d4ff;
     }
     
     /* Add Priority Section */
-    .add-priority-section {
-      margin-top: 30px;
+    .add-section {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
       padding: 30px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
     
-    .add-priority-section h3 {
+    .add-section h3 {
+      font-size: 22px;
       margin-bottom: 20px;
-      color: #333;
     }
     
-    .add-priority-info {
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 4px;
-    }
-    
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-    }
-    
-    .modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .modal-content {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      max-width: 500px;
-      width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-    
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-    
-    .modal-header h3 {
-      font-size: 24px;
-      color: #333;
-    }
-    
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: #999;
-      line-height: 1;
-    }
-    
-    .close-btn:hover {
-      color: #333;
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
     }
     
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     
     .form-group label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
-      color: #333;
+      font-size: 14px;
     }
     
     .form-group input,
     .form-group textarea,
     .form-group select {
       width: 100%;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
+      padding: 12px 15px;
+      border: 2px solid rgba(255,255,255,0.1);
       border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      color: white;
       font-size: 14px;
       font-family: inherit;
       transition: border-color 0.3s;
@@ -478,68 +380,143 @@
     .form-group textarea:focus,
     .form-group select:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #00d4ff;
     }
     
     .form-group textarea {
       resize: vertical;
-      min-height: 100px;
+      min-height: 80px;
     }
     
-    .alert {
-      padding: 12px 16px;
+    .form-group select option {
+      background: #1a1a2e;
+    }
+    
+    .login-prompt {
+      text-align: center;
+      padding: 30px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    .modal-content h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .modal-content p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 25px;
+    }
+    
+    .google-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      color: #333;
+      padding: 12px 24px;
       border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .google-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+    }
+    
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+    }
+    
+    /* Alert */
+    .alert {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-weight: 600;
+      z-index: 3000;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from { top: 70px; opacity: 0; }
+      to { top: 100px; opacity: 1; }
     }
     
     .alert-success {
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      color: white;
     }
     
     .alert-error {
-      background: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
+      background: #dc3545;
+      color: white;
     }
     
-    .alert-info {
-      background: #d1ecf1;
-      color: #0c5460;
-      border: 1px solid #bee5eb;
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: rgba(255,255,255,0.4);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
     
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 768px) {
-      .header-content {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .site-title h1 {
-        font-size: 24px;
-      }
-      
-      .stats-container {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .priority-item {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .priority-rank {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-      
-      .vote-section {
-        margin-top: 15px;
-      }
+      .hero h2 { font-size: 32px; }
+      .form-row { grid-template-columns: 1fr; }
+      .priority-card { flex-direction: column; text-align: center; }
+      .stats-bar { gap: 30px; }
+      .header-content { justify-content: center; }
     }
   </style>
 </head>
@@ -547,173 +524,417 @@
   <!-- Header -->
   <header class="header">
     <div class="header-content">
-      <div class="logo-section">
-        <div class="globe-icon">🌍</div>
-        <div class="site-title">
-          <h1>WORLD PRIORITY</h1>
-          <span class="tagline">Collective Global Priorities Ranked by Humanity</span>
+      <div class="logo">
+        <span class="globe">🌍</span>
+        <div>
+          <h1>World Priority</h1>
+          <div class="tagline">Shape The Future</div>
         </div>
       </div>
       
-      <div class="header-actions" id="headerActions">
-        <button class="btn btn-primary" onclick="loginWithGoogle()">
-          <span style="margin-right: 8px;">🔐</span> Sign in with Google
-        </button>
-        <button class="btn btn-secondary" onclick="openAddPriorityModal()">+ Suggest Priority</button>
-      </div>
-      
-      <div class="user-info" id="userInfo" style="display: none;">
-        <img id="userPhoto" src="" alt="" style="width: 32px; height: 32px; border-radius: 50%; margin-right: 10px;">
-        <span id="userName"></span>
-        <button class="btn btn-secondary" onclick="logout()" style="margin-left: 15px;">Logout</button>
+      <div class="auth-section">
+        <div id="userSection" style="display: none;">
+          <div class="user-profile">
+            <img id="userPhoto" src="" alt="Profile">
+            <span id="userName"></span>
+          </div>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        </div>
+        <div id="loginSection">
+          <button class="btn btn-primary" onclick="showLoginModal()">
+            🔐 Sign in with Google
+          </button>
+        </div>
       </div>
     </div>
   </header>
   
-  <!-- Stats Bar -->
+  <!-- Hero -->
+  <section class="hero">
+    <h2>What Should <span>Humanity</span> Focus On?</h2>
+    <p>Vote on the most critical issues facing our world. See real-time trends and discover what people believe should be humanity's top priorities.</p>
+  </section>
+  
+  <!-- Stats -->
   <div class="stats-bar">
-    <div class="stats-container">
-      <div class="stat-item">
-        <div class="stat-number" id="totalVotes">0</div>
-        <div class="stat-label">Total Votes</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="totalPriorities">0</div>
-        <div class="stat-label">Global Priorities</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="activeUsers">0</div>
-        <div class="stat-label">Active Voices</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="countriesRepresented">0</div>
-        <div class="stat-label">Countries</div>
-      </div>
+    <div class="stat">
+      <div class="stat-value" id="totalVotes">0</div>
+      <div class="stat-label">Total Votes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="totalPriorities">0</div>
+      <div class="stat-label">Priorities</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="totalUsers">0</div>
+      <div class="stat-label">Participants</div>
     </div>
   </div>
   
-  <!-- Main Container -->
+  <!-- Main Content -->
   <div class="container">
-    <!-- Intro Section -->
-    <div class="intro-section">
-      <h2>🌐 What Does the World Care About Most?</h2>
-      <p>
-        <strong>World Priority</strong> is a real-time platform where people from across the globe vote on what matters most to humanity. 
-        See trending priorities, discover what the world wants to change, and add your voice to shape the future.
-        <strong style="color: #667eea;">Sign in with Google to vote and suggest priorities!</strong>
-      </p>
+    <div class="section-header">
+      <h3 class="section-title">🏆 Global <span>Leaderboard</span></h3>
     </div>
     
-    <!-- Priorities Section -->
-    <div class="priorities-section">
-      <div class="section-header">
-        <h3>🏆 Global Priorities Leaderboard</h3>
-        <div class="filter-buttons">
-          <button class="filter-btn active" onclick="filterPriorities('all')">All</button>
-          <button class="filter-btn" onclick="filterPriorities('trending')">🔥 Trending</button>
-          <button class="filter-btn" onclick="filterPriorities('new')">✨ New</button>
-        </div>
-      </div>
-      
-      <div id="priorityList" class="priority-list">
-        <div class="loading">
-          <div class="spinner"></div>
-          <p>Loading global priorities...</p>
-        </div>
-      </div>
+    <div id="priorityList" class="priority-list">
+      <!-- Priority items will be loaded here -->
     </div>
     
-    <!-- Add Priority Info -->
-    <div class="add-priority-section">
-      <h3>💡 Want to Add a New Priority?</h3>
-      <div class="add-priority-info">
-        <strong>📝 How it works:</strong>
-        <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
-          <li>Sign in with your Google account</li>
-          <li>Submit your priority suggestion with description</li>
-          <li>Admin reviews and approves within 24-48 hours</li>
-          <li>Once approved, the world can start voting!</li>
-        </ol>
+    <!-- Add Priority Section -->
+    <div class="add-section">
+      <h3>✨ Suggest a New Priority</h3>
+      <div id="addPriorityContent">
+        <div id="loginPrompt" class="login-prompt">
+          <p>🔐 Please sign in with Google to suggest new priorities</p>
+          <button class="btn btn-primary" onclick="showLoginModal()" style="margin-top: 15px;">Sign in with Google</button>
+        </div>
+        <form id="addPriorityForm" style="display: none;" onsubmit="submitPriority(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Priority Title</label>
+              <input type="text" id="priorityTitle" placeholder="e.g., Climate Action" required maxlength="100">
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="priorityCategory" required>
+                <option value="">Select category...</option>
+                <option value="Environment">🌱 Environment</option>
+                <option value="Health">🏥 Health</option>
+                <option value="Education">📚 Education</option>
+                <option value="Peace">☮️ Peace & Security</option>
+                <option value="Poverty">💰 Poverty & Inequality</option>
+                <option value="Technology">🤖 Technology</option>
+                <option value="Human Rights">⚖️ Human Rights</option>
+                <option value="Other">🌐 Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description (optional)</label>
+            <textarea id="priorityDesc" placeholder="Briefly explain why this is important..." maxlength="300"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">🚀 Submit Priority</button>
+        </form>
       </div>
-      <button class="btn btn-primary" onclick="openAddPriorityModal()" style="width: 100%; margin-top: 15px;">
-        + Suggest a New Global Priority
-      </button>
     </div>
   </div>
   
-  <!-- Login Modal (Simplified for Google Auth) -->
+  <!-- Login Modal -->
   <div id="loginModal" class="modal">
-    <div class="modal-content" style="max-width: 400px;">
-      <div class="modal-header">
-        <h3>🔐 Sign In</h3>
-        <button class="close-btn" onclick="closeLoginModal()">&times;</button>
-      </div>
-      
-      <div id="loginAlert"></div>
-      
-      <div style="text-align: center; padding: 20px 0;">
-        <p style="margin-bottom: 20px; color: #666;">Sign in to vote and suggest priorities</p>
-        <button class="btn btn-primary" onclick="loginWithGoogle()" style="width: 100%; padding: 15px; font-size: 16px;">
-          <span style="margin-right: 10px;">🔐</span> Continue with Google
-        </button>
-      </div>
-      
-      <div style="text-align: center; font-size: 12px; color: #999; margin-top: 20px;">
-        By signing in, you agree to participate in global priority voting
-      </div>
+    <div class="modal-content" style="position: relative;">
+      <button class="close-modal" onclick="closeLoginModal()">×</button>
+      <h3>🌍 Join World Priority</h3>
+      <p>Sign in to vote on priorities and submit your own suggestions for what humanity should focus on.</p>
+      <div id="googleButtonContainer"></div>
     </div>
   </div>
   
-  <!-- Add Priority Modal -->
-  <div id="addPriorityModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>💡 Suggest New Priority</h3>
-        <button class="close-btn" onclick="closeAddPriorityModal()">&times;</button>
-      </div>
-      
-      <div id="addPriorityAlert"></div>
-      
-      <form id="addPriorityForm" onsubmit="submitPriority(event)">
-        <div class="form-group">
-          <label for="priorityTitle">Priority Title *</label>
-          <input type="text" id="priorityTitle" required maxlength="100" 
-                 placeholder="e.g., Climate Change Action" />
-        </div>
-        
-        <div class="form-group">
-          <label for="priorityDescription">Description *</label>
-          <textarea id="priorityDescription" required maxlength="500"
-                    placeholder="Explain why this is a global priority..."></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label for="priorityCategory">Category *</label>
-          <select id="priorityCategory" required>
-            <option value="">Select category...</option>
-            <option value="Environment">🌱 Environment</option>
-            <option value="Health">🏥 Health</option>
-            <option value="Education">📚 Education</option>
-            <option value="Economy">💼 Economy</option>
-            <option value="Technology">💻 Technology</option>
-            <option value="Peace">☮️ Peace & Security</option>
-            <option value="Human Rights">✊ Human Rights</option>
-            <option value="Innovation">💡 Innovation</option>
-            <option value="Other">🔹 Other</option>
-          </select>
-        </div>
-        
-        <button type="submit" class="btn btn-primary" style="width: 100%;">
-          Submit for Review
-        </button>
-      </form>
-    </div>
-  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>🌍 World Priority - Making humanity's voice heard | © 2026</p>
+  </footer>
   
-  <!-- Firebase Config -->
-  <script src="firebase-config.js"></script>
-  
-  <!-- Main Application Script -->
-  <script src="app.js"></script>
+  <script>
+    // ==========================================
+    // WORLD PRIORITY - PURE GITHUB PAGES VERSION
+    // ==========================================
+    
+    // Your Google OAuth Client ID - Replace with your actual client ID
+    const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+    
+    // Current user
+    let currentUser = null;
+    
+    // Default priorities data (will sync with localStorage)
+    const DEFAULT_PRIORITIES = [
+      { id: '1', title: 'Climate Change Action', category: 'Environment', description: 'Urgent action needed to reduce global emissions and protect our planet', votes: 15847, voters: [] },
+      { id: '2', title: 'Universal Healthcare', category: 'Health', description: 'Access to quality healthcare for everyone regardless of income', votes: 12453, voters: [] },
+      { id: '3', title: 'End World Hunger', category: 'Poverty', description: 'Ensure food security and nutrition for all people globally', votes: 11234, voters: [] },
+      { id: '4', title: 'Quality Education for All', category: 'Education', description: 'Free, quality education accessible to every child worldwide', votes: 9876, voters: [] },
+      { id: '5', title: 'Clean Water Access', category: 'Environment', description: 'Safe drinking water and sanitation for all communities', votes: 8765, voters: [] },
+      { id: '6', title: 'Mental Health Awareness', category: 'Health', description: 'Destigmatize and improve access to mental health resources', votes: 7654, voters: [] },
+      { id: '7', title: 'Renewable Energy Transition', category: 'Technology', description: 'Accelerate shift from fossil fuels to sustainable energy', votes: 6543, voters: [] },
+      { id: '8', title: 'Gender Equality', category: 'Human Rights', description: 'Equal rights and opportunities regardless of gender', votes: 5432, voters: [] },
+      { id: '9', title: 'End Armed Conflicts', category: 'Peace', description: 'Work towards peaceful resolution of all armed conflicts', votes: 4321, voters: [] },
+      { id: '10', title: 'AI Safety & Ethics', category: 'Technology', description: 'Ensure artificial intelligence benefits humanity safely', votes: 3210, voters: [] }
+    ];
+    
+    // Initialize Google Sign-In
+    function initGoogleSignIn() {
+      if (typeof google !== 'undefined' && google.accounts) {
+        google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleSignIn,
+          auto_select: true
+        });
+        
+        // Render the Google button in modal
+        google.accounts.id.renderButton(
+          document.getElementById('googleButtonContainer'),
+          { 
+            theme: 'filled_blue', 
+            size: 'large', 
+            width: 280,
+            text: 'signin_with'
+          }
+        );
+        
+        // Check for existing session
+        const savedUser = localStorage.getItem('worldPriorityUser');
+        if (savedUser) {
+          currentUser = JSON.parse(savedUser);
+          updateUIForLoggedInUser();
+        }
+      } else {
+        // If Google Sign-In not loaded, show demo mode
+        setTimeout(initGoogleSignIn, 500);
+      }
+    }
+    
+    // Handle Google Sign-In response
+    function handleGoogleSignIn(response) {
+      const payload = parseJwt(response.credential);
+      
+      currentUser = {
+        id: payload.sub,
+        name: payload.name,
+        email: payload.email,
+        photo: payload.picture
+      };
+      
+      // Save user session
+      localStorage.setItem('worldPriorityUser', JSON.stringify(currentUser));
+      
+      // Track user for stats
+      trackUser(currentUser.id);
+      
+      updateUIForLoggedInUser();
+      closeLoginModal();
+      showAlert('Welcome, ' + currentUser.name + '! 🎉', 'success');
+    }
+    
+    // Parse JWT token
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+    
+    // Update UI for logged in user
+    function updateUIForLoggedInUser() {
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('userSection').style.display = 'flex';
+      document.getElementById('userPhoto').src = currentUser.photo;
+      document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
+      document.getElementById('loginPrompt').style.display = 'none';
+      document.getElementById('addPriorityForm').style.display = 'block';
+      renderPriorities();
+    }
+    
+    // Logout
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('worldPriorityUser');
+      document.getElementById('loginSection').style.display = 'block';
+      document.getElementById('userSection').style.display = 'none';
+      document.getElementById('loginPrompt').style.display = 'block';
+      document.getElementById('addPriorityForm').style.display = 'none';
+      renderPriorities();
+      showAlert('Logged out successfully', 'success');
+    }
+    
+    // Show/Hide Login Modal
+    function showLoginModal() {
+      document.getElementById('loginModal').classList.add('active');
+    }
+    
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('active');
+    }
+    
+    // Get priorities from localStorage or use defaults
+    function getPriorities() {
+      const stored = localStorage.getItem('worldPriorities');
+      if (stored) {
+        return JSON.parse(stored);
+      }
+      localStorage.setItem('worldPriorities', JSON.stringify(DEFAULT_PRIORITIES));
+      return DEFAULT_PRIORITIES;
+    }
+    
+    // Save priorities to localStorage
+    function savePriorities(priorities) {
+      localStorage.setItem('worldPriorities', JSON.stringify(priorities));
+    }
+    
+    // Track unique users
+    function trackUser(userId) {
+      const users = JSON.parse(localStorage.getItem('worldPriorityUsers') || '[]');
+      if (!users.includes(userId)) {
+        users.push(userId);
+        localStorage.setItem('worldPriorityUsers', JSON.stringify(users));
+      }
+    }
+    
+    // Render priorities list
+    function renderPriorities() {
+      const priorities = getPriorities().sort((a, b) => b.votes - a.votes);
+      const container = document.getElementById('priorityList');
+      
+      let totalVotes = 0;
+      priorities.forEach(p => totalVotes += p.votes);
+      
+      const users = JSON.parse(localStorage.getItem('worldPriorityUsers') || '[]');
+      
+      document.getElementById('totalVotes').textContent = totalVotes.toLocaleString();
+      document.getElementById('totalPriorities').textContent = priorities.length;
+      document.getElementById('totalUsers').textContent = users.length.toLocaleString();
+      
+      container.innerHTML = priorities.map((priority, index) => {
+        const rank = index + 1;
+        const rankClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : 'normal';
+        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
+        
+        const hasVoted = currentUser && priority.voters && priority.voters.includes(currentUser.id);
+        const canVote = currentUser && !hasVoted;
+        
+        return `
+          <div class="priority-card">
+            <div class="rank ${rankClass}">${medal || '#' + rank}</div>
+            <div class="priority-info">
+              <div class="priority-title">${escapeHtml(priority.title)}</div>
+              <div class="priority-meta">
+                <span class="category-tag">${escapeHtml(priority.category)}</span>
+                ${priority.description ? `<span class="priority-desc">${escapeHtml(priority.description)}</span>` : ''}
+              </div>
+            </div>
+            <div class="vote-section">
+              <button class="vote-btn ${hasVoted ? 'voted' : ''}" 
+                      onclick="vote('${priority.id}')" 
+                      ${!canVote ? 'disabled' : ''}
+                      title="${!currentUser ? 'Sign in to vote' : hasVoted ? 'Already voted' : 'Vote for this priority'}">
+                ${hasVoted ? '✓' : '▲'}
+              </button>
+              <div class="vote-count">${priority.votes.toLocaleString()}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // Vote for a priority
+    function vote(priorityId) {
+      if (!currentUser) {
+        showLoginModal();
+        return;
+      }
+      
+      const priorities = getPriorities();
+      const priority = priorities.find(p => p.id === priorityId);
+      
+      if (!priority) return;
+      
+      if (!priority.voters) priority.voters = [];
+      
+      if (priority.voters.includes(currentUser.id)) {
+        showAlert('You have already voted for this priority', 'error');
+        return;
+      }
+      
+      priority.voters.push(currentUser.id);
+      priority.votes++;
+      
+      savePriorities(priorities);
+      renderPriorities();
+      showAlert('Vote recorded! 🎉', 'success');
+    }
+    
+    // Submit new priority
+    function submitPriority(event) {
+      event.preventDefault();
+      
+      if (!currentUser) {
+        showLoginModal();
+        return;
+      }
+      
+      const title = document.getElementById('priorityTitle').value.trim();
+      const category = document.getElementById('priorityCategory').value;
+      const description = document.getElementById('priorityDesc').value.trim();
+      
+      if (!title || !category) {
+        showAlert('Please fill in required fields', 'error');
+        return;
+      }
+      
+      const priorities = getPriorities();
+      
+      // Check for duplicates
+      if (priorities.some(p => p.title.toLowerCase() === title.toLowerCase())) {
+        showAlert('A similar priority already exists!', 'error');
+        return;
+      }
+      
+      const newPriority = {
+        id: Date.now().toString(),
+        title: title,
+        category: category,
+        description: description,
+        votes: 1,
+        voters: [currentUser.id],
+        submittedBy: currentUser.name,
+        createdAt: new Date().toISOString()
+      };
+      
+      priorities.push(newPriority);
+      savePriorities(priorities);
+      
+      // Reset form
+      document.getElementById('addPriorityForm').reset();
+      
+      renderPriorities();
+      showAlert('Priority submitted successfully! 🚀', 'success');
+    }
+    
+    // Show alert message
+    function showAlert(message, type) {
+      const existing = document.querySelector('.alert');
+      if (existing) existing.remove();
+      
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.textContent = message;
+      document.body.appendChild(alert);
+      
+      setTimeout(() => alert.remove(), 3000);
+    }
+    
+    // Escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+    
+    // Close modal on outside click
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+      if (e.target === this) closeLoginModal();
+    });
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      initGoogleSignIn();
+      renderPriorities();
+    });
+    
+    // Also try to init after a short delay (for script load timing)
+    setTimeout(() => {
+      renderPriorities();
+    }, 100);
+  </script>
 </body>
 </html>
