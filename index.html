@@ -1,14 +1,719 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-6404032174018146">
-  <title>Budget Travel & Affiliate Earnings</title>
+  <title>World Priority - What Matters Most to Humanity</title>
+  
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6404032174018146" crossorigin="anonymous"></script>
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+    
+    /* Header Styles */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid #667eea;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .globe-icon {
+      font-size: 48px;
+      animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .site-title {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .site-title h1 {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+    
+    .site-title .tagline {
+      font-size: 14px;
+      color: #666;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    
+    .btn-secondary:hover {
+      background: #667eea;
+      color: white;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .stat-number {
+      font-size: 32px;
+      font-weight: 900;
+      color: #667eea;
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+    
+    /* Main Container */
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .intro-section {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .intro-section h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .intro-section p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    
+    /* Priority Items */
+    .priorities-section {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .section-header h3 {
+      font-size: 24px;
+      color: #333;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .filter-btn {
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .filter-btn.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+    
+    .priority-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .priority-item {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .priority-item:hover {
+      border-color: #667eea;
+      transform: translateX(5px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+    }
+    
+    .priority-rank {
+      font-size: 24px;
+      font-weight: 900;
+      color: #667eea;
+      margin-right: 20px;
+      min-width: 40px;
+      text-align: center;
+    }
+    
+    .priority-content {
+      flex: 1;
+    }
+    
+    .priority-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .priority-meta {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .priority-category {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #667eea;
+      color: white;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+    
+    .vote-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+    }
+    
+    .vote-btn {
+      background: white;
+      border: 2px solid #667eea;
+      color: #667eea;
+      font-size: 24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .vote-btn:hover:not(:disabled) {
+      background: #667eea;
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    .vote-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .vote-btn.voted {
+      background: #667eea;
+      color: white;
+    }
+    
+    .vote-count {
+      margin-top: 8px;
+      font-weight: 700;
+      color: #667eea;
+      font-size: 16px;
+    }
+    
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+    
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Add Priority Section */
+    .add-priority-section {
+      margin-top: 30px;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .add-priority-section h3 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .add-priority-info {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .modal-header h3 {
+      font-size: 24px;
+      color: #333;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+    }
+    
+    .close-btn:hover {
+      color: #333;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .site-title h1 {
+        font-size: 24px;
+      }
+      
+      .stats-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .priority-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .priority-rank {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+      
+      .vote-section {
+        margin-top: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Budget Travel India</h1>
-  <p>A site about budget travel, earning tips, and affiliate earnings from travel content.</p>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="globe-icon">🌍</div>
+        <div class="site-title">
+          <h1>WORLD PRIORITY</h1>
+          <span class="tagline">Collective Global Priorities Ranked by Humanity</span>
+        </div>
+      </div>
+      
+      <div class="header-actions" id="headerActions">
+        <button class="btn btn-primary" onclick="loginWithGoogle()">
+          <span style="margin-right: 8px;">🔐</span> Sign in with Google
+        </button>
+        <button class="btn btn-secondary" onclick="openAddPriorityModal()">+ Suggest Priority</button>
+      </div>
+      
+      <div class="user-info" id="userInfo" style="display: none;">
+        <img id="userPhoto" src="" alt="" style="width: 32px; height: 32px; border-radius: 50%; margin-right: 10px;">
+        <span id="userName"></span>
+        <button class="btn btn-secondary" onclick="logout()" style="margin-left: 15px;">Logout</button>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number" id="totalVotes">0</div>
+        <div class="stat-label">Total Votes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="totalPriorities">0</div>
+        <div class="stat-label">Global Priorities</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="activeUsers">0</div>
+        <div class="stat-label">Active Voices</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="countriesRepresented">0</div>
+        <div class="stat-label">Countries</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Intro Section -->
+    <div class="intro-section">
+      <h2>🌐 What Does the World Care About Most?</h2>
+      <p>
+        <strong>World Priority</strong> is a real-time platform where people from across the globe vote on what matters most to humanity. 
+        See trending priorities, discover what the world wants to change, and add your voice to shape the future.
+        <strong style="color: #667eea;">Sign in with Google to vote and suggest priorities!</strong>
+      </p>
+    </div>
+    
+    <!-- Priorities Section -->
+    <div class="priorities-section">
+      <div class="section-header">
+        <h3>🏆 Global Priorities Leaderboard</h3>
+        <div class="filter-buttons">
+          <button class="filter-btn active" onclick="filterPriorities('all')">All</button>
+          <button class="filter-btn" onclick="filterPriorities('trending')">🔥 Trending</button>
+          <button class="filter-btn" onclick="filterPriorities('new')">✨ New</button>
+        </div>
+      </div>
+      
+      <div id="priorityList" class="priority-list">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading global priorities...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Add Priority Info -->
+    <div class="add-priority-section">
+      <h3>💡 Want to Add a New Priority?</h3>
+      <div class="add-priority-info">
+        <strong>📝 How it works:</strong>
+        <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
+          <li>Sign in with your Google account</li>
+          <li>Submit your priority suggestion with description</li>
+          <li>Admin reviews and approves within 24-48 hours</li>
+          <li>Once approved, the world can start voting!</li>
+        </ol>
+      </div>
+      <button class="btn btn-primary" onclick="openAddPriorityModal()" style="width: 100%; margin-top: 15px;">
+        + Suggest a New Global Priority
+      </button>
+    </div>
+  </div>
+  
+  <!-- Login Modal (Simplified for Google Auth) -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>🔐 Sign In</h3>
+        <button class="close-btn" onclick="closeLoginModal()">&times;</button>
+      </div>
+      
+      <div id="loginAlert"></div>
+      
+      <div style="text-align: center; padding: 20px 0;">
+        <p style="margin-bottom: 20px; color: #666;">Sign in to vote and suggest priorities</p>
+        <button class="btn btn-primary" onclick="loginWithGoogle()" style="width: 100%; padding: 15px; font-size: 16px;">
+          <span style="margin-right: 10px;">🔐</span> Continue with Google
+        </button>
+      </div>
+      
+      <div style="text-align: center; font-size: 12px; color: #999; margin-top: 20px;">
+        By signing in, you agree to participate in global priority voting
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Priority Modal -->
+  <div id="addPriorityModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>💡 Suggest New Priority</h3>
+        <button class="close-btn" onclick="closeAddPriorityModal()">&times;</button>
+      </div>
+      
+      <div id="addPriorityAlert"></div>
+      
+      <form id="addPriorityForm" onsubmit="submitPriority(event)">
+        <div class="form-group">
+          <label for="priorityTitle">Priority Title *</label>
+          <input type="text" id="priorityTitle" required maxlength="100" 
+                 placeholder="e.g., Climate Change Action" />
+        </div>
+        
+        <div class="form-group">
+          <label for="priorityDescription">Description *</label>
+          <textarea id="priorityDescription" required maxlength="500"
+                    placeholder="Explain why this is a global priority..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="priorityCategory">Category *</label>
+          <select id="priorityCategory" required>
+            <option value="">Select category...</option>
+            <option value="Environment">🌱 Environment</option>
+            <option value="Health">🏥 Health</option>
+            <option value="Education">📚 Education</option>
+            <option value="Economy">💼 Economy</option>
+            <option value="Technology">💻 Technology</option>
+            <option value="Peace">☮️ Peace & Security</option>
+            <option value="Human Rights">✊ Human Rights</option>
+            <option value="Innovation">💡 Innovation</option>
+            <option value="Other">🔹 Other</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Submit for Review
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Firebase Config -->
+  <script src="firebase-config.js"></script>
+  
+  <!-- Main Application Script -->
+  <script src="app.js"></script>
 </body>
 </html>
