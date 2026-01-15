@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-6404032174018146">
   <title>World Priority - What Should Humanity Focus On?</title>
-  <meta name="description" content="Vote on the most important issues facing humanity. See global trends and what people think the world should prioritize.">
+  <meta name="description" content="Vote on the most important issues facing humanity. See global trends by country and what people think the world should prioritize.">
   
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6404032174018146" crossorigin="anonymous"></script>
-  
-  <!-- Google Sign-In -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -84,25 +81,19 @@
       gap: 15px;
     }
     
-    .user-profile {
+    .user-badge {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: rgba(255,255,255,0.1);
       padding: 8px 15px;
       border-radius: 50px;
-    }
-    
-    .user-profile img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid #00d4ff;
-    }
-    
-    .user-profile span {
       font-size: 14px;
       font-weight: 600;
+    }
+    
+    .country-flag {
+      font-size: 20px;
     }
     
     .btn {
@@ -139,7 +130,7 @@
     .hero {
       text-align: center;
       padding: 60px 20px 40px;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
     
@@ -160,7 +151,7 @@
       font-size: 18px;
       color: rgba(255,255,255,0.7);
       line-height: 1.6;
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
     }
     
@@ -168,7 +159,7 @@
     .stats-bar {
       display: flex;
       justify-content: center;
-      gap: 50px;
+      gap: 40px;
       padding: 30px;
       flex-wrap: wrap;
     }
@@ -191,6 +182,51 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-top: 5px;
+    }
+    
+    /* Country Leaderboard */
+    .country-section {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .country-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .country-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-3px);
+    }
+    
+    .country-card .flag {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    
+    .country-card .country-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .country-card .country-votes {
+      font-size: 24px;
+      font-weight: 900;
+      color: #00d4ff;
     }
     
     /* Main Container */
@@ -284,6 +320,12 @@
     .priority-desc {
       font-size: 13px;
       color: rgba(255,255,255,0.5);
+    }
+    
+    .country-breakdown {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 8px;
     }
     
     .vote-section {
@@ -392,12 +434,6 @@
       background: #1a1a2e;
     }
     
-    .login-prompt {
-      text-align: center;
-      padding: 30px;
-      color: rgba(255,255,255,0.6);
-    }
-    
     /* Modal */
     .modal {
       display: none;
@@ -422,44 +458,21 @@
       border: 1px solid rgba(255,255,255,0.1);
       padding: 40px;
       border-radius: 20px;
-      max-width: 400px;
+      max-width: 450px;
       width: 90%;
-      text-align: center;
+      position: relative;
     }
     
     .modal-content h3 {
       font-size: 24px;
       margin-bottom: 15px;
+      text-align: center;
     }
     
     .modal-content p {
       color: rgba(255,255,255,0.6);
       margin-bottom: 25px;
-    }
-    
-    .google-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: white;
-      color: #333;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      font-size: 16px;
-      transition: all 0.3s;
-    }
-    
-    .google-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
-    }
-    
-    .google-btn img {
-      width: 20px;
-      height: 20px;
+      text-align: center;
     }
     
     .close-modal {
@@ -471,6 +484,11 @@
       border: none;
       color: rgba(255,255,255,0.5);
       cursor: pointer;
+      line-height: 1;
+    }
+    
+    .close-modal:hover {
+      color: white;
     }
     
     /* Alert */
@@ -484,6 +502,7 @@
       font-weight: 600;
       z-index: 3000;
       animation: slideDown 0.3s ease;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
     
     @keyframes slideDown {
@@ -508,6 +527,7 @@
       color: rgba(255,255,255,0.4);
       font-size: 14px;
       border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 40px;
     }
     
     /* Responsive */
@@ -517,6 +537,7 @@
       .priority-card { flex-direction: column; text-align: center; }
       .stats-bar { gap: 30px; }
       .header-content { justify-content: center; }
+      .country-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
     }
   </style>
 </head>
@@ -534,15 +555,15 @@
       
       <div class="auth-section">
         <div id="userSection" style="display: none;">
-          <div class="user-profile">
-            <img id="userPhoto" src="" alt="Profile">
-            <span id="userName"></span>
+          <div class="user-badge">
+            <span class="country-flag" id="userFlag"></span>
+            <span id="userCountry"></span>
           </div>
-          <button class="btn btn-outline" onclick="logout()">Logout</button>
+          <button class="btn btn-outline" onclick="changeCountry()">Change Country</button>
         </div>
-        <div id="loginSection">
-          <button class="btn btn-primary" onclick="showLoginModal()">
-            🔐 Sign in with Google
+        <div id="setupSection">
+          <button class="btn btn-primary" onclick="showCountryModal()">
+            🌍 Start Voting
           </button>
         </div>
       </div>
@@ -552,7 +573,7 @@
   <!-- Hero -->
   <section class="hero">
     <h2>What Should <span>Humanity</span> Focus On?</h2>
-    <p>Vote on the most critical issues facing our world. See real-time trends and discover what people believe should be humanity's top priorities.</p>
+    <p>Vote on the most critical issues facing our world. See real-time trends by country and discover what people believe should be humanity's top priorities.</p>
   </section>
   
   <!-- Stats -->
@@ -566,8 +587,18 @@
       <div class="stat-label">Priorities</div>
     </div>
     <div class="stat">
-      <div class="stat-value" id="totalUsers">0</div>
-      <div class="stat-label">Participants</div>
+      <div class="stat-value" id="totalCountries">0</div>
+      <div class="stat-label">Countries</div>
+    </div>
+  </div>
+  
+  <!-- Top Countries -->
+  <div class="country-section">
+    <div class="section-header">
+      <h3 class="section-title">🌍 Most Active <span>Countries</span></h3>
+    </div>
+    <div id="countryGrid" class="country-grid">
+      <!-- Country cards will be loaded here -->
     </div>
   </div>
   
@@ -584,49 +615,48 @@
     <!-- Add Priority Section -->
     <div class="add-section">
       <h3>✨ Suggest a New Priority</h3>
-      <div id="addPriorityContent">
-        <div id="loginPrompt" class="login-prompt">
-          <p>🔐 Please sign in with Google to suggest new priorities</p>
-          <button class="btn btn-primary" onclick="showLoginModal()" style="margin-top: 15px;">Sign in with Google</button>
-        </div>
-        <form id="addPriorityForm" style="display: none;" onsubmit="submitPriority(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Priority Title</label>
-              <input type="text" id="priorityTitle" placeholder="e.g., Climate Action" required maxlength="100">
-            </div>
-            <div class="form-group">
-              <label>Category</label>
-              <select id="priorityCategory" required>
-                <option value="">Select category...</option>
-                <option value="Environment">🌱 Environment</option>
-                <option value="Health">🏥 Health</option>
-                <option value="Education">📚 Education</option>
-                <option value="Peace">☮️ Peace & Security</option>
-                <option value="Poverty">💰 Poverty & Inequality</option>
-                <option value="Technology">🤖 Technology</option>
-                <option value="Human Rights">⚖️ Human Rights</option>
-                <option value="Other">🌐 Other</option>
-              </select>
-            </div>
+      <form id="addPriorityForm" onsubmit="submitPriority(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Priority Title</label>
+            <input type="text" id="priorityTitle" placeholder="e.g., Climate Action" required maxlength="100">
           </div>
           <div class="form-group">
-            <label>Description (optional)</label>
-            <textarea id="priorityDesc" placeholder="Briefly explain why this is important..." maxlength="300"></textarea>
+            <label>Category</label>
+            <select id="priorityCategory" required>
+              <option value="">Select category...</option>
+              <option value="Environment">🌱 Environment</option>
+              <option value="Health">🏥 Health</option>
+              <option value="Education">📚 Education</option>
+              <option value="Peace">☮️ Peace & Security</option>
+              <option value="Poverty">💰 Poverty & Inequality</option>
+              <option value="Technology">🤖 Technology</option>
+              <option value="Human Rights">⚖️ Human Rights</option>
+              <option value="Other">🌐 Other</option>
+            </select>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%;">🚀 Submit Priority</button>
-        </form>
-      </div>
+        </div>
+        <div class="form-group">
+          <label>Description (optional)</label>
+          <textarea id="priorityDesc" placeholder="Briefly explain why this is important..." maxlength="300"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">🚀 Submit Priority</button>
+      </form>
     </div>
   </div>
   
-  <!-- Login Modal -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content" style="position: relative;">
-      <button class="close-modal" onclick="closeLoginModal()">×</button>
-      <h3>🌍 Join World Priority</h3>
-      <p>Sign in to vote on priorities and submit your own suggestions for what humanity should focus on.</p>
-      <div id="googleButtonContainer"></div>
+  <!-- Country Selection Modal -->
+  <div id="countryModal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeCountryModal()">×</button>
+      <h3>🌍 Select Your Country</h3>
+      <p>Help us understand global priorities by selecting your country</p>
+      <div class="form-group">
+        <select id="countrySelect" style="width: 100%; padding: 15px; font-size: 16px;">
+          <option value="">Choose your country...</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="setCountry()" style="width: 100%; margin-top: 15px;">Continue</button>
     </div>
   </div>
   
@@ -637,126 +667,153 @@
   
   <script>
     // ==========================================
-    // WORLD PRIORITY - PURE GITHUB PAGES VERSION
+    // WORLD PRIORITY - COUNTRY-BASED VOTING
     // ==========================================
     
-    // Your Google OAuth Client ID - Replace with your actual client ID
-    const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+    // Countries with flags
+    const COUNTRIES = [
+      { code: 'US', name: 'United States', flag: '🇺🇸' },
+      { code: 'IN', name: 'India', flag: '🇮🇳' },
+      { code: 'CN', name: 'China', flag: '🇨🇳' },
+      { code: 'BR', name: 'Brazil', flag: '🇧🇷' },
+      { code: 'ID', name: 'Indonesia', flag: '🇮🇩' },
+      { code: 'PK', name: 'Pakistan', flag: '🇵🇰' },
+      { code: 'NG', name: 'Nigeria', flag: '🇳🇬' },
+      { code: 'BD', name: 'Bangladesh', flag: '🇧🇩' },
+      { code: 'RU', name: 'Russia', flag: '🇷🇺' },
+      { code: 'MX', name: 'Mexico', flag: '🇲🇽' },
+      { code: 'JP', name: 'Japan', flag: '🇯🇵' },
+      { code: 'ET', name: 'Ethiopia', flag: '🇪🇹' },
+      { code: 'PH', name: 'Philippines', flag: '🇵🇭' },
+      { code: 'EG', name: 'Egypt', flag: '🇪🇬' },
+      { code: 'VN', name: 'Vietnam', flag: '🇻🇳' },
+      { code: 'CD', name: 'DR Congo', flag: '🇨🇩' },
+      { code: 'TR', name: 'Turkey', flag: '🇹🇷' },
+      { code: 'IR', name: 'Iran', flag: '🇮🇷' },
+      { code: 'DE', name: 'Germany', flag: '🇩🇪' },
+      { code: 'TH', name: 'Thailand', flag: '🇹🇭' },
+      { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
+      { code: 'FR', name: 'France', flag: '🇫🇷' },
+      { code: 'IT', name: 'Italy', flag: '🇮🇹' },
+      { code: 'ZA', name: 'South Africa', flag: '🇿🇦' },
+      { code: 'MM', name: 'Myanmar', flag: '🇲🇲' },
+      { code: 'KR', name: 'South Korea', flag: '🇰🇷' },
+      { code: 'CO', name: 'Colombia', flag: '🇨🇴' },
+      { code: 'ES', name: 'Spain', flag: '🇪🇸' },
+      { code: 'AR', name: 'Argentina', flag: '🇦🇷' },
+      { code: 'DZ', name: 'Algeria', flag: '🇩🇿' },
+      { code: 'SD', name: 'Sudan', flag: '🇸🇩' },
+      { code: 'UG', name: 'Uganda', flag: '🇺🇬' },
+      { code: 'UA', name: 'Ukraine', flag: '🇺🇦' },
+      { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+      { code: 'PL', name: 'Poland', flag: '🇵🇱' },
+      { code: 'MA', name: 'Morocco', flag: '🇲🇦' },
+      { code: 'SA', name: 'Saudi Arabia', flag: '🇸🇦' },
+      { code: 'UZ', name: 'Uzbekistan', flag: '🇺🇿' },
+      { code: 'PE', name: 'Peru', flag: '🇵🇪' },
+      { code: 'MY', name: 'Malaysia', flag: '🇲🇾' },
+      { code: 'AF', name: 'Afghanistan', flag: '🇦🇫' },
+      { code: 'VE', name: 'Venezuela', flag: '🇻🇪' },
+      { code: 'NP', name: 'Nepal', flag: '🇳🇵' },
+      { code: 'AU', name: 'Australia', flag: '🇦🇺' },
+      { code: 'KE', name: 'Kenya', flag: '🇰🇪' },
+      { code: 'OTHER', name: 'Other', flag: '🌍' }
+    ];
     
     // Current user
     let currentUser = null;
     
-    // Default priorities data (will sync with localStorage)
+    // Default priorities data
     const DEFAULT_PRIORITIES = [
-      { id: '1', title: 'Climate Change Action', category: 'Environment', description: 'Urgent action needed to reduce global emissions and protect our planet', votes: 15847, voters: [] },
-      { id: '2', title: 'Universal Healthcare', category: 'Health', description: 'Access to quality healthcare for everyone regardless of income', votes: 12453, voters: [] },
-      { id: '3', title: 'End World Hunger', category: 'Poverty', description: 'Ensure food security and nutrition for all people globally', votes: 11234, voters: [] },
-      { id: '4', title: 'Quality Education for All', category: 'Education', description: 'Free, quality education accessible to every child worldwide', votes: 9876, voters: [] },
-      { id: '5', title: 'Clean Water Access', category: 'Environment', description: 'Safe drinking water and sanitation for all communities', votes: 8765, voters: [] },
-      { id: '6', title: 'Mental Health Awareness', category: 'Health', description: 'Destigmatize and improve access to mental health resources', votes: 7654, voters: [] },
-      { id: '7', title: 'Renewable Energy Transition', category: 'Technology', description: 'Accelerate shift from fossil fuels to sustainable energy', votes: 6543, voters: [] },
-      { id: '8', title: 'Gender Equality', category: 'Human Rights', description: 'Equal rights and opportunities regardless of gender', votes: 5432, voters: [] },
-      { id: '9', title: 'End Armed Conflicts', category: 'Peace', description: 'Work towards peaceful resolution of all armed conflicts', votes: 4321, voters: [] },
-      { id: '10', title: 'AI Safety & Ethics', category: 'Technology', description: 'Ensure artificial intelligence benefits humanity safely', votes: 3210, voters: [] }
+      { id: '1', title: 'Climate Change Action', category: 'Environment', description: 'Urgent action to reduce emissions and protect our planet', votes: 0, countryVotes: {} },
+      { id: '2', title: 'Universal Healthcare', category: 'Health', description: 'Quality healthcare for everyone regardless of income', votes: 0, countryVotes: {} },
+      { id: '3', title: 'End World Hunger', category: 'Poverty', description: 'Food security and nutrition for all people globally', votes: 0, countryVotes: {} },
+      { id: '4', title: 'Quality Education for All', category: 'Education', description: 'Free, quality education for every child worldwide', votes: 0, countryVotes: {} },
+      { id: '5', title: 'Clean Water Access', category: 'Environment', description: 'Safe drinking water and sanitation for all', votes: 0, countryVotes: {} },
+      { id: '6', title: 'Mental Health Awareness', category: 'Health', description: 'Destigmatize and improve mental health resources', votes: 0, countryVotes: {} },
+      { id: '7', title: 'Renewable Energy', category: 'Technology', description: 'Shift from fossil fuels to sustainable energy', votes: 0, countryVotes: {} },
+      { id: '8', title: 'Gender Equality', category: 'Human Rights', description: 'Equal rights and opportunities for all genders', votes: 0, countryVotes: {} },
+      { id: '9', title: 'End Armed Conflicts', category: 'Peace', description: 'Peaceful resolution of armed conflicts', votes: 0, countryVotes: {} },
+      { id: '10', title: 'AI Safety & Ethics', category: 'Technology', description: 'Ensure AI benefits humanity safely', votes: 0, countryVotes: {} }
     ];
     
-    // Initialize Google Sign-In
-    function initGoogleSignIn() {
-      if (typeof google !== 'undefined' && google.accounts) {
-        google.accounts.id.initialize({
-          client_id: GOOGLE_CLIENT_ID,
-          callback: handleGoogleSignIn,
-          auto_select: true
-        });
-        
-        // Render the Google button in modal
-        google.accounts.id.renderButton(
-          document.getElementById('googleButtonContainer'),
-          { 
-            theme: 'filled_blue', 
-            size: 'large', 
-            width: 280,
-            text: 'signin_with'
-          }
-        );
-        
-        // Check for existing session
-        const savedUser = localStorage.getItem('worldPriorityUser');
-        if (savedUser) {
-          currentUser = JSON.parse(savedUser);
-          updateUIForLoggedInUser();
-        }
+    // Initialize
+    function init() {
+      // Populate country select
+      const select = document.getElementById('countrySelect');
+      COUNTRIES.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country.code;
+        option.textContent = `${country.flag} ${country.name}`;
+        select.appendChild(option);
+      });
+      
+      // Check if user has country set
+      const savedUser = localStorage.getItem('worldPriorityUser');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateUIForUser();
       } else {
-        // If Google Sign-In not loaded, show demo mode
-        setTimeout(initGoogleSignIn, 500);
+        // Auto-show country modal for first-time visitors
+        setTimeout(() => showCountryModal(), 1000);
       }
+      
+      renderPriorities();
+      renderCountries();
+      updateStats();
     }
     
-    // Handle Google Sign-In response
-    function handleGoogleSignIn(response) {
-      const payload = parseJwt(response.credential);
+    // Show/Hide Country Modal
+    function showCountryModal() {
+      document.getElementById('countryModal').classList.add('active');
+    }
+    
+    function closeCountryModal() {
+      document.getElementById('countryModal').classList.remove('active');
+    }
+    
+    // Set Country
+    function setCountry() {
+      const countryCode = document.getElementById('countrySelect').value;
+      if (!countryCode) {
+        showAlert('Please select a country', 'error');
+        return;
+      }
+      
+      const country = COUNTRIES.find(c => c.code === countryCode);
+      const userId = localStorage.getItem('worldPriorityUserId') || 'user_' + Date.now() + '_' + Math.random().toString(36);
       
       currentUser = {
-        id: payload.sub,
-        name: payload.name,
-        email: payload.email,
-        photo: payload.picture
+        id: userId,
+        country: country.code,
+        countryName: country.name,
+        countryFlag: country.flag,
+        joinedAt: new Date().toISOString()
       };
       
-      // Save user session
       localStorage.setItem('worldPriorityUser', JSON.stringify(currentUser));
+      localStorage.setItem('worldPriorityUserId', userId);
       
-      // Track user for stats
-      trackUser(currentUser.id);
-      
-      updateUIForLoggedInUser();
-      closeLoginModal();
-      showAlert('Welcome, ' + currentUser.name + '! 🎉', 'success');
+      updateUIForUser();
+      closeCountryModal();
+      showAlert(`Welcome from ${country.name}! 🎉`, 'success');
+      renderPriorities();
     }
     
-    // Parse JWT token
-    function parseJwt(token) {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      return JSON.parse(jsonPayload);
+    // Change Country
+    function changeCountry() {
+      showCountryModal();
     }
     
-    // Update UI for logged in user
-    function updateUIForLoggedInUser() {
-      document.getElementById('loginSection').style.display = 'none';
+    // Update UI for user
+    function updateUIForUser() {
+      document.getElementById('setupSection').style.display = 'none';
       document.getElementById('userSection').style.display = 'flex';
-      document.getElementById('userPhoto').src = currentUser.photo;
-      document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
-      document.getElementById('loginPrompt').style.display = 'none';
-      document.getElementById('addPriorityForm').style.display = 'block';
-      renderPriorities();
+      document.getElementById('userFlag').textContent = currentUser.countryFlag;
+      document.getElementById('userCountry').textContent = currentUser.countryName;
     }
     
-    // Logout
-    function logout() {
-      currentUser = null;
-      localStorage.removeItem('worldPriorityUser');
-      document.getElementById('loginSection').style.display = 'block';
-      document.getElementById('userSection').style.display = 'none';
-      document.getElementById('loginPrompt').style.display = 'block';
-      document.getElementById('addPriorityForm').style.display = 'none';
-      renderPriorities();
-      showAlert('Logged out successfully', 'success');
-    }
-    
-    // Show/Hide Login Modal
-    function showLoginModal() {
-      document.getElementById('loginModal').classList.add('active');
-    }
-    
-    function closeLoginModal() {
-      document.getElementById('loginModal').classList.remove('active');
-    }
-    
-    // Get priorities from localStorage or use defaults
+    // Get priorities
     function getPriorities() {
       const stored = localStorage.getItem('worldPriorities');
       if (stored) {
@@ -766,41 +823,116 @@
       return DEFAULT_PRIORITIES;
     }
     
-    // Save priorities to localStorage
+    // Save priorities
     function savePriorities(priorities) {
       localStorage.setItem('worldPriorities', JSON.stringify(priorities));
     }
     
-    // Track unique users
-    function trackUser(userId) {
-      const users = JSON.parse(localStorage.getItem('worldPriorityUsers') || '[]');
-      if (!users.includes(userId)) {
-        users.push(userId);
-        localStorage.setItem('worldPriorityUsers', JSON.stringify(users));
+    // Get user votes
+    function getUserVotes() {
+      if (!currentUser) return [];
+      const votes = localStorage.getItem(`votes_${currentUser.id}`);
+      return votes ? JSON.parse(votes) : [];
+    }
+    
+    // Save user vote
+    function saveUserVote(priorityId) {
+      if (!currentUser) return;
+      const votes = getUserVotes();
+      if (!votes.includes(priorityId)) {
+        votes.push(priorityId);
+        localStorage.setItem(`votes_${currentUser.id}`, JSON.stringify(votes));
       }
     }
     
-    // Render priorities list
-    function renderPriorities() {
-      const priorities = getPriorities().sort((a, b) => b.votes - a.votes);
-      const container = document.getElementById('priorityList');
-      
+    // Update Stats
+    function updateStats() {
+      const priorities = getPriorities();
       let totalVotes = 0;
-      priorities.forEach(p => totalVotes += p.votes);
+      const countriesSet = new Set();
       
-      const users = JSON.parse(localStorage.getItem('worldPriorityUsers') || '[]');
+      priorities.forEach(p => {
+        totalVotes += p.votes || 0;
+        if (p.countryVotes) {
+          Object.keys(p.countryVotes).forEach(country => countriesSet.add(country));
+        }
+      });
       
       document.getElementById('totalVotes').textContent = totalVotes.toLocaleString();
       document.getElementById('totalPriorities').textContent = priorities.length;
-      document.getElementById('totalUsers').textContent = users.length.toLocaleString();
+      document.getElementById('totalCountries').textContent = countriesSet.size || 0;
+    }
+    
+    // Render Countries
+    function renderCountries() {
+      const priorities = getPriorities();
+      const countryStats = {};
+      
+      // Count votes by country
+      priorities.forEach(p => {
+        if (p.countryVotes) {
+          Object.entries(p.countryVotes).forEach(([country, votes]) => {
+            countryStats[country] = (countryStats[country] || 0) + votes;
+          });
+        }
+      });
+      
+      // Sort by votes
+      const sortedCountries = Object.entries(countryStats)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8);
+      
+      const container = document.getElementById('countryGrid');
+      
+      if (sortedCountries.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4);">No votes yet. Be the first to vote!</div>';
+        return;
+      }
+      
+      container.innerHTML = sortedCountries.map(([code, votes]) => {
+        const country = COUNTRIES.find(c => c.code === code);
+        if (!country) return '';
+        return `
+          <div class="country-card">
+            <div class="flag">${country.flag}</div>
+            <div class="country-name">${country.name}</div>
+            <div class="country-votes">${votes.toLocaleString()}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // Render Priorities
+    function renderPriorities() {
+      const priorities = getPriorities().sort((a, b) => (b.votes || 0) - (a.votes || 0));
+      const container = document.getElementById('priorityList');
+      const userVotes = getUserVotes();
       
       container.innerHTML = priorities.map((priority, index) => {
         const rank = index + 1;
         const rankClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : 'normal';
         const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
         
-        const hasVoted = currentUser && priority.voters && priority.voters.includes(currentUser.id);
+        const hasVoted = currentUser && userVotes.includes(priority.id);
         const canVote = currentUser && !hasVoted;
+        
+        // Get top 3 countries for this priority
+        let countryBreakdown = '';
+        if (priority.countryVotes && Object.keys(priority.countryVotes).length > 0) {
+          const topCountries = Object.entries(priority.countryVotes)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3)
+            .map(([code, votes]) => {
+              const country = COUNTRIES.find(c => c.code === code);
+              return country ? `${country.flag} ${votes}` : '';
+            })
+            .filter(Boolean)
+            .join(' • ');
+          
+          if (topCountries) {
+            countryBreakdown = `<div class="country-breakdown">Top: ${topCountries}</div>`;
+          }
+        }
         
         return `
           <div class="priority-card">
@@ -811,25 +943,32 @@
                 <span class="category-tag">${escapeHtml(priority.category)}</span>
                 ${priority.description ? `<span class="priority-desc">${escapeHtml(priority.description)}</span>` : ''}
               </div>
+              ${countryBreakdown}
             </div>
             <div class="vote-section">
               <button class="vote-btn ${hasVoted ? 'voted' : ''}" 
                       onclick="vote('${priority.id}')" 
                       ${!canVote ? 'disabled' : ''}
-                      title="${!currentUser ? 'Sign in to vote' : hasVoted ? 'Already voted' : 'Vote for this priority'}">
+                      title="${!currentUser ? 'Select country to vote' : hasVoted ? 'Already voted' : 'Vote for this priority'}">
                 ${hasVoted ? '✓' : '▲'}
               </button>
-              <div class="vote-count">${priority.votes.toLocaleString()}</div>
+              <div class="vote-count">${(priority.votes || 0).toLocaleString()}</div>
             </div>
           </div>
         `;
       }).join('');
     }
     
-    // Vote for a priority
+    // Vote
     function vote(priorityId) {
       if (!currentUser) {
-        showLoginModal();
+        showCountryModal();
+        return;
+      }
+      
+      const userVotes = getUserVotes();
+      if (userVotes.includes(priorityId)) {
+        showAlert('You already voted for this priority', 'error');
         return;
       }
       
@@ -838,27 +977,29 @@
       
       if (!priority) return;
       
-      if (!priority.voters) priority.voters = [];
+      // Increment vote count
+      priority.votes = (priority.votes || 0) + 1;
       
-      if (priority.voters.includes(currentUser.id)) {
-        showAlert('You have already voted for this priority', 'error');
-        return;
-      }
-      
-      priority.voters.push(currentUser.id);
-      priority.votes++;
+      // Track by country
+      if (!priority.countryVotes) priority.countryVotes = {};
+      priority.countryVotes[currentUser.country] = (priority.countryVotes[currentUser.country] || 0) + 1;
       
       savePriorities(priorities);
+      saveUserVote(priorityId);
+      
       renderPriorities();
-      showAlert('Vote recorded! 🎉', 'success');
+      renderCountries();
+      updateStats();
+      
+      showAlert(`Vote recorded from ${currentUser.countryFlag} ${currentUser.countryName}! 🎉`, 'success');
     }
     
-    // Submit new priority
+    // Submit Priority
     function submitPriority(event) {
       event.preventDefault();
       
       if (!currentUser) {
-        showLoginModal();
+        showCountryModal();
         return;
       }
       
@@ -873,7 +1014,7 @@
       
       const priorities = getPriorities();
       
-      // Check for duplicates
+      // Check duplicates
       if (priorities.some(p => p.title.toLowerCase() === title.toLowerCase())) {
         showAlert('A similar priority already exists!', 'error');
         return;
@@ -885,22 +1026,25 @@
         category: category,
         description: description,
         votes: 1,
-        voters: [currentUser.id],
-        submittedBy: currentUser.name,
+        countryVotes: { [currentUser.country]: 1 },
+        submittedBy: currentUser.countryName,
         createdAt: new Date().toISOString()
       };
       
       priorities.push(newPriority);
       savePriorities(priorities);
+      saveUserVote(newPriority.id);
       
-      // Reset form
       document.getElementById('addPriorityForm').reset();
       
       renderPriorities();
+      renderCountries();
+      updateStats();
+      
       showAlert('Priority submitted successfully! 🚀', 'success');
     }
     
-    // Show alert message
+    // Show Alert
     function showAlert(message, type) {
       const existing = document.querySelector('.alert');
       if (existing) existing.remove();
@@ -921,20 +1065,12 @@
     }
     
     // Close modal on outside click
-    document.getElementById('loginModal').addEventListener('click', function(e) {
-      if (e.target === this) closeLoginModal();
+    document.getElementById('countryModal').addEventListener('click', function(e) {
+      if (e.target === this) closeCountryModal();
     });
     
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      initGoogleSignIn();
-      renderPriorities();
-    });
-    
-    // Also try to init after a short delay (for script load timing)
-    setTimeout(() => {
-      renderPriorities();
-    }, 100);
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
